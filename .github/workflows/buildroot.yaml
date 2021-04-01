@@ -6,11 +6,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        defconfig_name: [qemu_x86_defconfig, qemu_x86_64_defconfig, raspberrypi4_defconfig, raspberrypi4_64_defconfig, qemu_ppc64le_pseries_defconfig, qemu_mips32r2_malta_defconfig, qemu_mips64_malta_defconfig]
+        defconfig_name:
+          - qemu_x86_defconfig
+          - qemu_x86_64_defconfig
+          - raspberrypi4_defconfig
+          - raspberrypi4_64_defconfig
+          - qemu_ppc64le_pseries_defconfig
+          - qemu_mips32r2_malta_defconfig
+          - qemu_mips64_malta_defconfig
         libc_name: [glibc, uclibc, musl]
     steps:
       - name: Checkout Buildroot sources
-        # Builroot 2021.02 is the first stable version to natively support radvd 2.19, this avoids a lot of package modifications
+        # Builroot 2021.02 is the first stable version to natively support radvd 2.19,
+        # this avoids a lot of package modifications
         run: git clone --depth=1 --branch=2021.02 https://git.busybox.net/buildroot
       - name: Select latest radvd development version
         working-directory: buildroot/package/radvd
